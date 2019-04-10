@@ -2,9 +2,32 @@
 <html>
 <head>
     <title>Snake Game</title>
+    <link rel="stylesheet" type="text/css" href="snake.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-    <canvas id="snake" width="608" height ="608" style="border:1px solid #999999;"></canvas>
+    <div class="container">
+    <h1 id="heading" >The Snake Game</h1>
+        <div class="row">
+            <div class="column">
+                    <canvas id="snake" width="608" height ="608" ></canvas>
+            </div>
+            <div class="column">
+                    <div >
+                        <button type="button" class="btn btn-success btn-reload" >PLAY!</button>
+                    </div>
+                    <div>
+                            <h3 id="side_text">Set Speed</h3>
+                            <button type="button" class=" btn btn-primary slowbtn"  >low</button>
+                            <button type="button" class=" btn btn-primary mediumbtn " >medium</button>
+                            <button type="button" class="btn btn-primary fastbtn" >high</button>
+                    </div>
+                    <div>
+                        <h1 id="side_text">Score:<span id="scores">0</span></h1>
+                    </div>
+            </div>
+        </div>
+    </div>   
     <script src="snake.js"></script>
 </body>
 </html>

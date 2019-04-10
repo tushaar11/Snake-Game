@@ -23,24 +23,34 @@ down.src="audio/down.mp3"
 right.src="audio/right.mp3"
 left.src="audio/left.mp3"
 
-
+// let speed=1000;
+// let button=slow;
+// slow=1000;
+// medium=100;
+// fast=25;
+var gm="game over";
 let snake = [];
 snake[0]={
     x : 9*box,
     y:  10*box
 };
 
+snake[1]={
+    x : 8*box,
+    y:  10*box
+};
+
 let food = {
-    x : Math.floor(Math.random()*17+1) * box,
-    y : Math.floor(Math.random()*15+3) * box
+    x : Math.floor(Math.random()*34+1) * box,
+    y : Math.floor(Math.random()*34+1) * box
 }
 
-let score=0;
-
+let score=document.querySelector("#scores");
 //control the snake 
 
 document.addEventListener("keydown",direction)
 let d;
+d="RIGHT";
 function direction (event)
 {
     if(event.keyCode == 37 && d!="RIGHT")
@@ -76,7 +86,7 @@ function collision(head,array)
     }
     return false;
 }
-
+let game;
 function draw()
 {
     ctx.drawImage(background,0,0,608,608);
@@ -99,6 +109,7 @@ function draw()
     {
         eat.play();
         score++;
+        scores.textContent=score;
         food = {
             x : Math.floor(Math.random()*17+1) * box,
             y : Math.floor(Math.random()*15+3) * box
@@ -115,7 +126,6 @@ function draw()
     if(d=="RIGHT")  snakeX +=box;
     if(d=="DOWN")  snakeY +=box;
 
-    console.log(d);
 
     let newhead={
         x : snakeX,
@@ -129,14 +139,59 @@ function draw()
             ctx.fillStyle="white";
             ctx.fillRect(newhead.x,newhead.y,box,box);
         }
-            console.log(collision(newhead,snake));
         dead.play();
         clearInterval(game);
-    }
-    snake.unshift(newhead);
 
-    ctx.fillStyle="white";
-    ctx.font="50px Times New Roman";
-    ctx.fillText(score ,1*box,2*box);
+        ctx.fillStyle = "red";
+        ctx.font = "100px Times New Roman";
+        ctx.fillText("Game Over",5*box,20*box);
+    }
+        snake.unshift(newhead);
+
+        
 }
-let game =setInterval(draw,100);
+
+let speed=75;
+
+
+var slow = document.querySelector(".slowbtn");
+var medium = document.querySelector(".mediumbtn");
+var fast = document.querySelector(".fastbtn");
+
+medium.classList.add("active");
+var btn = document.querySelector(".btn-reload");
+slow.addEventListener("click", function(e){
+    speed=100;
+    slow.classList.add("active");
+    medium.classList.remove("active");
+    fast.classList.remove("active");
+});
+medium.addEventListener("click", function(e){
+    speed=75;
+    slow.classList.remove("active");
+    medium.classList.add("active");
+    fast.classList.remove("active");
+});
+fast.addEventListener("click", function(e){
+    speed=40;
+    slow.classList.remove("active");
+    medium.classList.remove("active");
+    fast.classList.add("active");
+});
+btn.addEventListener("click", function(e){
+    clearInterval(game);
+    game=setInterval(draw,speed);
+    score=0;
+    scores.textContent=score;
+    snake.length=0;
+    snake[0]=
+    {
+        x : 9*box,
+        y:  10*box
+    };
+    
+    snake[1]={
+        x : 8*box,
+        y:  10*box
+    };
+});
